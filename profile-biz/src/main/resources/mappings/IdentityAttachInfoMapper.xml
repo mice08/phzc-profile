@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.phzc.profile.biz.dao.IdentityAttachInfoMapper">
+
+	<resultMap id="IdentityAttachInfo" type="com.phzc.profile.biz.model.IdentityAttachInfoRecord">
+		<id column="attach_id" property="attachId" jdbcType="INTEGER" />
+		<result column="identity_id" property="identityId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="file_type" property="fileType" jdbcType="CHAR" />
+		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+		<result column="file_stat" property="fileStat" jdbcType="CHAR" />
+		<result column="upd_datetime" property="updDatetime" jdbcType="DATE" />
+	</resultMap>
+
+    
+     
+    
+	<insert id="insertIndentityAttachInfo" parameterType="com.phzc.profile.biz.model.IdentityAttachInfoRecord">
+		insert into `tb_identity_attach_info` (identity_id,user_id,file_type,file_path,file_name,file_stat,upd_datetime) values (
+    		#{identityId},
+    		#{userId},
+    		#{fileType},
+    		#{filePath},
+    		#{fileName},
+    		#{fileStat},
+    		#{updDatetime}
+    	)
+	</insert>
+	
+	<update id="updateIndentityAttachInfo" parameterType="com.phzc.profile.biz.model.IdentityAttachInfoRecord" >
+        update `tb_identity_attach_info` set 
+	        file_stat = #{fileStat}
+        where attach_id = #{attachId}
+    </update>
+    <select id="getIdentityFilepath" parameterType="com.phzc.profile.biz.model.IdentityAttachInfoRecord"  resultMap="IdentityAttachInfo">
+    	select * from `tb_identity_attach_info` 
+    		where 
+    			file_stat = #{fileStat} and user_id=#{userId}
+    </select>
+    
+    <select id="getIndentityAttachInfoByCustIdType" parameterType="com.phzc.profile.biz.model.IdentityAttachInfoRecord"  resultMap="IdentityAttachInfo">
+    	select * from `tb_identity_attach_info` 
+    		where 
+    			file_type = #{file_type} and user_id=#{userId}
+    </select>
+	
+</mapper> 

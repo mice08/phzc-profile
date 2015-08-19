@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phzc.profile.biz.dao.DiscussionMapper">
+    <resultMap id="BaseResultMap" type="com.phzc.profile.biz.model.Discussion">
+        <id column="dis_seq" property="disSeq"/>
+        <result column="dis_username" property="disUsername"/>
+        <result column="dis_mobilephone" property="disMobilephone"/>
+        <result column="dis_mail" property="disMail"/>
+        <result column="dis_dealstate" property="disDealstate"/>
+        <result column="dis_connectflag" property="disConnectflag"/>
+        <result column="dis_topic" property="disTopic"/>
+        <result column="dis_url" property="disUrl"/>
+        <result column="dis_content" property="disContent"/>
+        <result column="dis_reply" property="disReply"/>
+        <result column="dis_createtime" property="disCreatetime"/>
+        <result column="dis_updatetime" property="disUpdatetime"/>
+        <result column="custId" property="custId"/>
+    </resultMap>
+
+    <select id="query" resultMap="BaseResultMap" parameterType="hashmap">
+        SELECT dis_seq, dis_username, dis_mobilephone, dis_mail, dis_dealstate, dis_connectflag, dis_topic, dis_url,
+        dis_content, dis_reply, dis_createtime, dis_updatetime, custId
+        FROM tb_discussion
+        <where>
+            <if test="disUsername != null and disUsername != '' ">
+                AND dis_username = #{disUsername}
+            </if>
+            <if test="disMobilephone != null and disMobilephone != '' ">
+                AND dis_mobilephone = #{disMobilephone}
+            </if>
+            <if test="custId != null and custId != '' ">
+                AND custId = #{custId}
+            </if>
+        </where>
+        ORDER BY dis_createtime DESC
+        <if test="startRowNum != null and pageNum != null ">
+            <![CDATA[
+            limit #{startRowNum}, #{pageNum}
+            ]]>
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.phzc.profile.biz.model.Discussion">
+        INSERT INTO tb_discussion (dis_seq, dis_username, dis_mobilephone, dis_mail, dis_dealstate, dis_connectflag, dis_topic, dis_url,
+		  dis_content, dis_reply, dis_createtime, dis_updatetime, custId)
+		VALUES (#{disSeq}, #{disUsername}, #{disMobilephone}, #{disMail}, #{disDealstate}, #{disConnectflag}, #{disTopic}, #{disUrl}, #{disContent},
+		  #{disReply}, #{disCreatetime}, #{disUpdatetime}, #{custId})
+    </insert>
+</mapper>

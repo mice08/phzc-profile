@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.phzc.profile.biz.dao.IdentityInfoMapper">
+
+	<resultMap id="IdentityInfo" type="com.phzc.profile.biz.model.IdentityInfo">
+		<id column="identity_id" property="identityId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="comments" property="comments" jdbcType="VARCHAR" />
+		<result column="assets_01" property="assets01" jdbcType="VARCHAR" />
+		<result column="assets_02" property="assets02" jdbcType="VARCHAR" />
+		<result column="user_name" property="realName" jdbcType="VARCHAR" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="identity_sid" property="identitySId" jdbcType="VARCHAR" />
+		<result column="identity_type" property="identityType" jdbcType="VARCHAR" />
+		<result column="cert_num" property="certNum" jdbcType="VARCHAR" />
+		<result column="card_img" property="certImg" jdbcType="VARCHAR" />
+		<result column="is_agree" property="isAgree" jdbcType="INTEGER" />
+		<result column="identity_status" property="identityStatus" jdbcType="INTEGER" />
+		<result column="audit_time" property="auditTime" jdbcType="DATE" />
+		<result column="identity_datetime" property="identityDatetime" jdbcType="DATE" />
+		<result column="update_time" property="updateTime" jdbcType="DATE" />
+	</resultMap>
+	<resultMap id="IdentityRecord" type="com.phzc.profile.biz.model.IdentityRecord">
+		<id column="identity_id" property="identityId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="comments" property="comments" jdbcType="VARCHAR" />
+		<result column="assets_01" property="assets01" jdbcType="VARCHAR" />
+		<result column="assets_02" property="assets02" jdbcType="VARCHAR" />
+		<result column="user_name" property="realName" jdbcType="VARCHAR" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="identity_sid" property="identitySId" jdbcType="VARCHAR" />
+		<result column="cert_num" property="certNum" jdbcType="VARCHAR" />
+		<result column="card_img" property="certImg" jdbcType="VARCHAR" />
+		<result column="is_agree" property="isAgree" jdbcType="INTEGER" />
+		<result column="identity_status" property="identityStatus" jdbcType="INTEGER" />
+		<result column="audit_time" property="auditTime" jdbcType="DATE" />
+		<result column="update_time" property="updateTime" jdbcType="DATE" />
+		<result column="identity_status" property="identityStatus" jdbcType="INTEGER" />
+		
+	</resultMap>
+	
+
+    <select id="getIdentityListByUserId" parameterType="java.lang.String" resultMap="IdentityInfo">
+        select * from `tb_user_identity` where user_id = #{userId}
+    </select>
+    
+    <select id="getIdentityByIdentityId" parameterType="java.lang.String" resultMap="IdentityRecord">
+        select * from `tb_user_identity` where identity_id = #{identityId}
+    </select>
+    
+    <select id="getIdentityByIdentityType" parameterType="java.lang.String" resultMap="IdentityInfo">
+        select * from `tb_user_identity` where user_id = #{userId} and identity_type=#{identityType}
+    </select>
+    
+	<insert id="insertIdentityInfo" parameterType="com.phzc.profile.biz.model.IdentityInfo">
+		insert into `tb_user_identity` (user_id,assets_01,assets_02,org_name,identity_status,identity_type,is_agree,identity_sid,identity_datetime) values (
+    		#{userId},
+    		#{assets01},
+    		#{assets02},
+    		#{orgName},
+    		#{identityStatus},
+    		#{identityType},
+    		#{isAgree},
+    		#{identitySId},
+    		now()
+    	)
+	</insert>
+	
+	 <update id="updateIdentity" parameterType="com.phzc.profile.biz.model.IdentityRecord" >
+        update `tb_user_identity` set 
+	        assets_01 = #{assets01}, 
+	        assets_02 = #{assets02}, 
+	        org_name = #{orgName}, 
+	        identity_status = #{identityStatus}, 
+	        identity_type = #{identityType}, 
+	        is_agree = #{isAgree},
+	        identity_sid= #{identitySId},
+	        identity_datetime = now(),
+	        remark=#{remark},
+	        comments=#{comments},
+	        audit_time="0000-00-00 00:00:00"
+        where identity_id = #{identityId}
+    </update>
+	
+</mapper> 

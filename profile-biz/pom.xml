@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.phzc.profile</groupId>
+		<artifactId>profile</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<artifactId>profile-biz</artifactId>
+	<version>${profile-biz.version}</version>
+	<dependencies>
+		<dependency>
+			<groupId>com.phzc.profile</groupId>
+			<artifactId>profile-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+        
+        <!-- DB MYSQL MYBATIS -->
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		
+        <dependency>  
+			<groupId>org.mybatis</groupId>  
+			<artifactId>mybatis</artifactId>  
+			<version>3.2.3</version>  
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.14</version>
+		</dependency>
+		
+		<!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+        
+	</dependencies>
+	
+	<build>
+	
+		<resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <!--targetPath>${basedir}/webroot/WEB-INF/classes</targetPath-->
+                <filtering>true</filtering>
+                <!-- 包含 -->
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <!-- 排除  -->
+                <!-- <excludes>
+                	<exclude>**/*.java</exclude>
+                </excludes> -->
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--targetPath>${basedir}/webroot/WEB-INF/classes</targetPath-->
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <excludes>
+                	<exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+	
+	</build>
+	
+</project>

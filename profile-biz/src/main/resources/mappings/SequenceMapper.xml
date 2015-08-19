@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.phzc.profile.biz.dao.SequenceMapper">
+
+	<resultMap id="SequenceInfo" type="com.phzc.profile.biz.model.SequenceInfo">
+		<id column="seq_name" property="seqName" jdbcType="VARCHAR" />
+		<result column="seq_val" property="seqVal" jdbcType="INTEGER" />
+	</resultMap>
+
+    <select id="getSequenceNextval" parameterType="java.lang.String" resultType="Integer">
+        select seq_val from `tb_sequence` where seq_name = #{seqName}
+    </select>
+    
+    <update id="updateSequenceNextval" parameterType="java.lang.String" >
+        update `tb_sequence` set seq_val= seq_val+1	where seq_name = #{seqName}
+    </update>
+
+</mapper> 
